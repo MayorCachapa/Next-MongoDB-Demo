@@ -15,7 +15,6 @@ export default function Home({}: Props) {
             Es un proyecto abierto, para un mundo moderno y mas interactivo.
         </p>
         <Feed />
-
     </section>
   )
 }

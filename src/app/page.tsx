@@ -1,3 +1,5 @@
+import Feed from "@/components/Feed"
+
 type Props = {}
 
 export default function Home({}: Props) {
@@ -12,6 +14,7 @@ export default function Home({}: Props) {
             Esta aplicación está diseñada con la intención de crear, compartir y descubrir comandos para IA (inteligencias artificiales). 
             Es un proyecto abierto, para un mundo moderno y mas interactivo.
         </p>
+        <Feed />
 
     </section>
   )

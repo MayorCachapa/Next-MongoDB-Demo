@@ -41,7 +41,7 @@ export default function Nav({}: Props) {
             <div className="sm:flex hidden">
                 { session?.user ? (
                     <div className="flex gap-3 md:gap-5">
-                        <Link href="/create-prompt" className="slate_btn">
+                        <Link href="/create-post" className="slate_btn">
                             Crear Post
                         </Link>
                         <button type="button" onClick={() => void signOut()} className="outline_btn">Cerrar Sesión</button>

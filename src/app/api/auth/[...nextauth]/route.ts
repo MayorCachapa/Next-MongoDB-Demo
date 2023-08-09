@@ -1,6 +1,7 @@
 import NextAuth, { Session } from "next-auth";
 import GoogleProvider from 'next-auth/providers/google';
-
+import { connectToDB } from "../../../../../utils/database";
+import User from "../../../../../models/user"
 
 /* 
 In contrast to Pages directory, we create a folder with the catchall nextauth naming convention
@@ -18,17 +19,48 @@ const handler = NextAuth({
         })
     ],
 
-    async session({ session }) {
-        
-    },
+    callbacks: {
+        async session({ session }) {
 
-    async signIn({ profile }) {
-        try {
+            const sessionUser = await User.findOne({
+                email: session.user.email
+            })
+    
+            if (sessionUser) {
+                session.user.id = sessionUser._id.toString();
+            }
+    
+            return session;
+        },
+    
+        async signIn({ profile }) {
+            if (!profile) return false;
 
-        } catch (error) {
-
+            try {
+                await connectToDB();
+    
+                // Check if the user exists by using the method findOne (similar to objects.all.where()):
+                const userExists = await User.findOne({
+                    email: profile.email,
+                });
+    
+                // If the user does not exist, we proceed to create using the method .create
+                !userExists && (
+                    await User.create({
+                        email: profile.email,
+                        username: profile.email?.split('@')[0],
+                        image: profile.picture
+                    })
+                )
+                return true;
+    
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
         }
     }
+
 
     /*
     To create our own pages for different auth actions (most come prebuilt in NextAuth) we can declare a pages object

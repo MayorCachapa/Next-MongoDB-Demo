@@ -16,7 +16,7 @@ export default function Nav({}: Props) {
         setToggleDropdown(false);
     }
     
-    // const session = useSession();
+    const session = useSession();
     const user = true;
     const [providers, setProviders] = useState<ProvidersType>(null);
     

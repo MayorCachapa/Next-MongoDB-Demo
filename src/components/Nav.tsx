@@ -16,8 +16,8 @@ export default function Nav({}: Props) {
         setToggleDropdown(false);
     }
     
-    const session = useSession();
-    const user = true;
+    const { data: session } = useSession();
+
     const [providers, setProviders] = useState<ProvidersType>(null);
     
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function Nav({}: Props) {
         <nav className="flex-between w-full mb-16 pt-3">
             <Link href='/' className="flex gap-2 pt-3 flex-center">
                 <Image 
-                src={Logo}
+                src={ Logo }
                 alt="Logo"
                 width={150}
                 height={120}
@@ -39,7 +39,7 @@ export default function Nav({}: Props) {
                 />
             </Link>
             <div className="sm:flex hidden">
-                { user ? (
+                { session?.user ? (
                     <div className="flex gap-3 md:gap-5">
                         <Link href="/create-prompt" className="slate_btn">
                             Crear Post
@@ -47,7 +47,7 @@ export default function Nav({}: Props) {
                         <button type="button" onClick={() => void signOut()} className="outline_btn">Cerrar Sesión</button>
                         <Link href="/profile">
                             <Image 
-                            src={Profile}
+                            src={ session.user.image }
                             width={37}
                             height={37}
                             className="rounded-full" 
@@ -68,7 +68,7 @@ export default function Nav({}: Props) {
 
             {/* Mobile view: */}
             <div className="sm:hidden flex relative">
-                { user ? (
+                { session?.user ? (
                     <div className="flex">
                         <Image 
                         src={Profile}

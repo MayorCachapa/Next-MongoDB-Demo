@@ -1,4 +1,6 @@
 import NextAuth from "next-auth"
+import { StaticImport } from "next/dist/shared/lib/get-img-props"
+import { StaticImageData } from "next/image"
 
 declare module "next-auth" {
   /**
@@ -9,6 +11,7 @@ declare module "next-auth" {
       /** The user's postal address. */
         email: string
         id: string
+        image: string
     }
   }
 

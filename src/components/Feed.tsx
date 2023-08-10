@@ -32,7 +32,9 @@ function PromptCardList({ data, handleTagClick }: PromptListProps) {
 export default function Feed({}: Props) {
   const [searchText, setSearchText] = useState('')
 
+  // State to fetch and set posts (initially an empty array)
   const [posts, setPosts] = useState([])
+  // useEffect to fetch posts from API endpoint
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -51,10 +53,7 @@ export default function Feed({}: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setSearchText(() => {
-
-    })
-
+    
   }
 
   return (
@@ -64,7 +63,7 @@ export default function Feed({}: Props) {
         type="text"
         placeholder='Busca tags o usuarios'
         value={searchText}
-        onChange={}
+        onChange={ handleChange }
         required
         className='search_input peer'
         />

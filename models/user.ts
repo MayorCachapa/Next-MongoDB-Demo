@@ -1,5 +1,16 @@
-import { Schema, model, models } from 'mongoose';
+import { Schema, Types, model, models, Model, Document } from 'mongoose';
 
+
+/*
+Generating a Document for the Model seems like the easier way to export the types. To do so, include all the "columns"
+created for the model and match the data type. Do not include _id, since Mongoose infers it from the DB directly
+*/
+
+interface User {
+    email: string;
+    username: string;
+    image: string;
+}
 
 const UserSchema = new Schema({
     email: {
@@ -24,6 +35,12 @@ Because of Next13's nature of routing, the backend only gets activated when the 
 several instances of the same user, we first call models, which is an object from Mongoose. It essentially
 stores all the models generated for this schema.
 */
+
+
+// UserDocument 
+export interface UserDocument extends User, Document {}
+
+export interface UserModel extends Model<User> {}
 
 const User = models.User || model("User", UserSchema);
 

@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { ButtonHTMLAttributes, useState } from "react"
 import { useSession } from "next-auth/react"
 import { usePathname, useRouter } from "next/navigation"
 import { PostDocument } from "../../models/post"
 import Image from "next/image"
+import { CopyImg, TickImg } from "../../public/assets/exporter"
 
 type PromptProps = {
   data: PostDocument;
@@ -10,6 +11,17 @@ type PromptProps = {
 }
 
 export default function PromptCard({ data, handleTagClick }: PromptProps) {
+  // To set the copied status, we useState with an empty string at first.
+  const [copied, setCopied] = useState('')
+  // A function is defined to set the copied to Prompt, changing the icon displayed
+  const handleCopyClick = () => {
+    setCopied(data.prompt);
+    // navigator is used to write inside the clipboard the data
+    navigator.clipboard.writeText(data.prompt);
+    // Finally, a timer is set to return the icons back to default state
+    setTimeout(() => setCopied(''), 3000);
+  }
+
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-5">
@@ -20,8 +32,14 @@ export default function PromptCard({ data, handleTagClick }: PromptProps) {
             <h3 className="font-satoshi font-semibold text-slate-700">{data.creator.username}</h3>
             <h3 className="font-inter text-sm text-slate-500">{data.creator.email}</h3>
           </div>
+
         </div>
+        <button className="copy_btn" onClick={handleCopyClick}>
+          <Image src={ copied === data.prompt ? TickImg : CopyImg } alt="" width={12} height={12}/>
+        </button>
       </div>
+      <p className="my-4 font-satoshi text-sm text-slate-700">{data.prompt}</p>
+      <p className="font-inter text-sm blue_gradient cursor-pointer" onClick={() => handleTagClick()}>{data.tag}</p>
     </div>
   )
 }

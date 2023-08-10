@@ -1,5 +1,11 @@
-import { Schema, model, models } from 'mongoose';
+import { Model, Schema, model, models, Document } from 'mongoose';
+import User from './user';
 
+interface Post {
+    creator: User;
+    prompt: string;
+    tag: string;
+}
 
 const PostSchema = new Schema({
     creator: {
@@ -16,6 +22,10 @@ const PostSchema = new Schema({
         required: [true, "Please enter a tag"],
     }
 });
+
+export interface PostDocument extends Post, Document {}
+
+export interface PostModel extends Model<PostDocument> {}
 
 const Post = models.Post || model("Post", PostSchema);
 

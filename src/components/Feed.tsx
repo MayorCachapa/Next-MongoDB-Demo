@@ -1,17 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard';
+import { PostDocument } from '../../models/post';
 
 type Props = {}
 
-type Post = {
-  prompt: string
-    tag: string
-    _id: string
-}
-
 type PromptListProps = {
-  data: Post[]
+  data: PostDocument[]
   handleTagClick: () => void  
 }
 

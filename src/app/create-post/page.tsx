@@ -1,13 +1,17 @@
 'use client'
 import { useState } from "react"
 import { useSession } from "next-auth/react"
-import router, { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import Form from "@/components/Form"
 
 type Props = {}
 
 export default function CreatePrompt({}: Props) {
+    const { data: session } = useSession();
+    const router = useRouter();
+
     const [submitting, setSubmitting] = useState(false);
+
     const [post, setPost] = useState({
         prompt: '',
         tag: '',
@@ -38,9 +42,7 @@ export default function CreatePrompt({}: Props) {
         
       } finally {
         setSubmitting(false);
-
       }
-
     }
 
   return (

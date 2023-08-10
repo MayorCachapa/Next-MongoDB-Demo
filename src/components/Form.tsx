@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 
 type PostType = {
@@ -14,10 +15,17 @@ type FormProps = {
 }
 
 export default function Form({ type, setPost, post, submitting, handleSubmit }: FormProps) {
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement> ) => {
+    const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement> ) => {
         setPost({
             ...post,
             prompt: e.target.value,
+        })
+    }
+
+    const handleChangeTag = (e: React.ChangeEvent<HTMLInputElement> ) => {
+        setPost({
+            ...post,
+            tag: e.target.value,
         })
     }
   return (
@@ -26,10 +34,10 @@ export default function Form({ type, setPost, post, submitting, handleSubmit }: 
             <span className='blue_gradient'>{type} un Post</span>
         </h1>
         <p className='desc text-left max-w-md'>
-            {type} y comparte un comando para IA con el mundo. Deja tu imaginación fluir!
+            {type} y compartir un comando para IA con el mundo. Deja tu imaginación fluir!
         </p>
         <form onSubmit={handleSubmit} className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'>
-            <label htmlFor="text-area-prompt">Tu comando va aquí. También puedes incluir imágenes!</label>
+            <label htmlFor="text-area-prompt">Tu comando va aquí.</label>
             <textarea 
             name="text-area-prompt" 
             id="text-area-prompt" 
@@ -37,8 +45,24 @@ export default function Form({ type, setPost, post, submitting, handleSubmit }: 
             rows={10} 
             placeholder='Quiero una función que...'
             className='form_textarea'
-            onChange={handleChange}
+            onChange={handleChangeText}
             />
+            <label htmlFor="text-area-tag">Tu etiqueta va aquí.</label>
+            <input 
+            name="text-area-tag" 
+            id="text-area-tag" 
+            placeholder='#WebDev #JavaScript #React'
+            className='form_input'
+            onChange={handleChangeTag}
+            />
+            <div className='flex-end mx-3 mb-5 gap-4'>
+                <Link href="/" className="text-slate-400 text-sm">
+                    Cancel
+                </Link>
+                <button type="submit" disabled={submitting} className='slate_btn'>
+                    {submitting ? `${type}...` : type}
+                </button>
+            </div>
         </form>
     </section>
   )

@@ -19,7 +19,7 @@ export default function CreatePrompt({}: Props) {
 
   return (
     <Form 
-    type="Crea"
+    type="Crear"
     post={post}
     setPost={setPost}
     submitting={submitting}

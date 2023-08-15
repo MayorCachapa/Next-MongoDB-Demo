@@ -18,6 +18,8 @@ export default function MyProfile() {
         const response = await fetch(`/api/users/${session?.user.id}/posts`);
         const data = await response.json();
 
+        console.log(data)
+
         setPosts(data);
       } catch (error) {
         console.log(error);
@@ -26,7 +28,7 @@ export default function MyProfile() {
     };
 
     if (session?.user.id) fetchPosts();
-  });
+  }, [session?.user.id]);
 
   const handleEdit = () => {};
 
@@ -34,8 +36,8 @@ export default function MyProfile() {
 
   return (
     <Profile
-      name="My"
-      desc="My profile page"
+      name="Mi"
+      desc="Bienvenido a tu perfil, donde puedes ver, editar y borrar publicaciones hechas por ti!"
       data={posts}
       handleEdit={handleEdit}
       handleDelete={handleDelete}

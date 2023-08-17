@@ -4,8 +4,8 @@ import PromptCard from "./PromptCard"
 type ProfileProps = {
     name: string,
     desc: string,
-    handleEdit: () => void
-    handleDelete: () => void
+    handleEdit: (post: PostDocument) => void
+    handleDelete: (post: PostDocument) => void
     data: PostDocument[]
 }
 
@@ -19,8 +19,8 @@ export default function Profile({name, desc, handleEdit, handleDelete, data }: P
                 <PromptCard
                 key={item._id}
                 data={item}
-                handleEdit={() => handleEdit && handleEdit()}
-                handleDelete={() => handleDelete && handleDelete()}
+                handleEdit={() => handleEdit && handleEdit(item)}
+                handleDelete={() => handleDelete && handleDelete(item)}
                 handleTagClick={ () => {} }
                 />
             ))}

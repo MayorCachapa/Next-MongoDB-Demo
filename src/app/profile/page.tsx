@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@/components/Profile";
+import { PostDocument } from "../../../models/post";
 
 export default function MyProfile() {
+  // Set the Router
+  const router = useRouter();
   // Set the session data:
   const { data: session } = useSession();
 
@@ -18,8 +21,6 @@ export default function MyProfile() {
         const response = await fetch(`/api/users/${session?.user.id}/posts`);
         const data = await response.json();
 
-        console.log(data)
-
         setPosts(data);
       } catch (error) {
         console.log(error);
@@ -30,9 +31,13 @@ export default function MyProfile() {
     if (session?.user.id) fetchPosts();
   }, [session?.user.id]);
 
-  const handleEdit = () => {};
+  const handleEdit = (post: PostDocument) => {
+    router.push(`/update-post?id=${post._id}`)
+  };
 
-  const handleDelete = () => {};
+  const handleDelete = (post: PostDocument) => {
+    
+  };
 
   return (
     <Profile

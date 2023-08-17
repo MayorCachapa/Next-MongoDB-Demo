@@ -1,8 +1,8 @@
 import { Model, Schema, model, models, Document } from 'mongoose';
-import User from './user';
+import { UserDocument } from './user';
 
 interface Post {
-    creator: User;
+    creator: UserDocument;
     prompt: string;
     tag: string;
 }

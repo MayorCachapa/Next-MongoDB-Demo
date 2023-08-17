@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, useState } from "react"
+import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { usePathname, useRouter } from "next/navigation"
 import { PostDocument } from "../../models/post"
@@ -7,10 +7,14 @@ import { CopyImg, TickImg } from "../../public/assets/exporter"
 
 type PromptProps = {
   data: PostDocument;
-  handleTagClick: () => void  
+  handleTagClick: () => void
+  handleDelete?: () => void
+  handleEdit?: () => void  
 }
 
-export default function PromptCard({ data, handleTagClick }: PromptProps) {
+export default function PromptCard({ data, handleTagClick, handleDelete, handleEdit }: PromptProps) {
+  const pathName = usePathname();
+  const { data: session } = useSession();
   // To set the copied status, we useState with an empty string at first.
   const [copied, setCopied] = useState('')
   // A function is defined to set the copied to Prompt, changing the icon displayed
@@ -40,6 +44,12 @@ export default function PromptCard({ data, handleTagClick }: PromptProps) {
       </div>
       <p className="my-4 font-satoshi text-sm text-slate-700">{data.prompt}</p>
       <p className="font-inter text-sm blue_gradient cursor-pointer" onClick={() => handleTagClick()}>{data.tag}</p>
+      {session?.user.id === data.creator._id && pathName === '/profile' && (
+        <div className="flex-center gap-4 mt-5 border-t border-slate-100 pt-3">
+          <p className="font-inter outline_btn_card cursor-pointer" onClick={handleEdit}>Editar</p>
+          <p className="font-inter slate_btn_card cursor-pointer" onClick={handleDelete}>Borrar</p>
+        </div>
+      )}
     </div>
   )
 }

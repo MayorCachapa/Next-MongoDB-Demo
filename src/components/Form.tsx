@@ -46,7 +46,7 @@ export default function Form({ type, setPost, post, submitting, handleSubmit }: 
             placeholder='Quiero una función que...'
             className='form_textarea'
             onChange={handleChangeText}
-            value={post.prompt}
+            defaultValue={post.prompt}
             />
             <label htmlFor="text-area-tag">Tu etiqueta va aquí.</label>
             <input 
@@ -55,7 +55,7 @@ export default function Form({ type, setPost, post, submitting, handleSubmit }: 
             placeholder='#WebDev #JavaScript #React'
             className='form_input'
             onChange={handleChangeTag}
-            value={post.tag}
+            defaultValue={post.tag}
             />
             <div className='flex-end mx-3 mb-5 gap-4'>
                 <Link href="/" className="text-slate-400 text-sm">

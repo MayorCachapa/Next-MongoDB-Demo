@@ -7,7 +7,7 @@ import { CopyImg, TickImg } from "../../public/assets/exporter"
 
 type PromptProps = {
   data: PostDocument;
-  handleTagClick: () => void
+  handleTagClick: (tagClicked: string) => void
   handleDelete?: () => void
   handleEdit?: () => void  
 }
@@ -43,7 +43,7 @@ export default function PromptCard({ data, handleTagClick, handleDelete, handleE
         </button>
       </div>
       <p className="my-4 font-satoshi text-sm text-slate-700">{data.prompt}</p>
-      <p className="font-inter text-sm blue_gradient cursor-pointer" onClick={() => handleTagClick()}>{data.tag}</p>
+      <p className="font-inter text-sm blue_gradient cursor-pointer" onClick={() => handleTagClick && handleTagClick(data.tag)}>{data.tag}</p>
       {session?.user.id === data.creator._id && pathName === '/profile' && (
         <div className="flex-center gap-4 mt-5 border-t border-slate-100 pt-3">
           <p className="font-inter outline_btn_card cursor-pointer" onClick={handleEdit}>Editar</p>

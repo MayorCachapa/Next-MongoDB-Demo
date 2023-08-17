@@ -52,7 +52,7 @@ export const DELETE = async (request: Request, { params }: Params) => {
         const post = await Post.findById(params.id);
         if (!post) return new Response("Post not found", { status: 404 });
         // If found, delete the post (there's also the method findByIdAndRemove(params.id))
-        await post.delete();
+        await post.deleteOne();
         // if everything checks out, delete the post and return a success message with a success status
         return new Response("Post successfully deleted", { status: 200 });
     } catch (error) {

@@ -35,8 +35,22 @@ export default function MyProfile() {
     router.push(`/update-post?id=${post._id}`)
   };
 
-  const handleDelete = (post: PostDocument) => {
-    
+  const handleDelete = async (post: PostDocument) => {
+    // Pass a confirm message, with the method confirm (built in the browser API)
+    const confirmed = confirm("¿Estás seguro que quieres borrar tu publicación? Este efecto es permanente y no puede ser revertido")
+    // If the user confirms the decision
+    if (confirmed) {
+      try {
+        // Call the endpoint with method DELETE, passing the targeted post._id
+        await fetch(`api/post/${post._id}`, {
+          method: "DELETE"
+        })
+
+      } catch (error) {
+        console.log(error)
+        throw(error)
+      }
+    }
   };
 
   return (

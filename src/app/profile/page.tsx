@@ -46,6 +46,11 @@ export default function MyProfile() {
           method: "DELETE"
         })
 
+      // Because the page wasn't updating, we filter the posts to all those that have a different ID than the one deleted
+      const filterPosts = posts.filter((p: PostDocument) => p._id !== post._id);
+      // Then, we set the posts with our filtered array
+      setPosts(filterPosts)
+
       } catch (error) {
         console.log(error)
         throw(error)

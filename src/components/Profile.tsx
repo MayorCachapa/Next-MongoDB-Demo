@@ -4,8 +4,8 @@ import PromptCard from "./PromptCard"
 type ProfileProps = {
     name: string,
     desc: string,
-    handleEdit: (post: PostDocument) => void
-    handleDelete: (post: PostDocument) => void
+    handleEdit?: (post: PostDocument) => void
+    handleDelete?: (post: PostDocument) => void
     data: PostDocument[]
 }
 

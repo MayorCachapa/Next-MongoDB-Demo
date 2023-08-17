@@ -33,7 +33,7 @@ export default function PromptCard({ data, handleTagClick, handleDelete, handleE
   const handleProfileClick = () => {
     if (data.creator._id === session?.user.id) return router.push('/profile')
 
-    router.push(`/profile/${data.creator.id}/?name=${data.creator.username}`)
+    router.push(`/profile/${data.creator._id}/?name=${data.creator.username}`)
   };
 
   return (
@@ -43,7 +43,7 @@ export default function PromptCard({ data, handleTagClick, handleDelete, handleE
           <Image src={data.creator.image} alt={data.creator.username} width={40} height={40} className="rounded-full object-contain" />
 
           <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-slate-700">{data.creator.username}</h3>
+            <h3 className="font-satoshi font-semibold text-slate-700" onClick={handleProfileClick}>{data.creator.username}</h3>
             <h3 className="font-inter text-sm text-slate-500">{data.creator.email}</h3>
           </div>
 

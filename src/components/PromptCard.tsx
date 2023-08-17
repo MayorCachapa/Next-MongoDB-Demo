@@ -13,18 +13,28 @@ type PromptProps = {
 }
 
 export default function PromptCard({ data, handleTagClick, handleDelete, handleEdit }: PromptProps) {
-  const pathName = usePathname();
   const { data: session } = useSession();
+  // State for pathName to check if the use is in their profile or in the main feed
+  const pathName = usePathname();
   // To set the copied status, we useState with an empty string at first.
   const [copied, setCopied] = useState('')
-  // A function is defined to set the copied to Prompt, changing the icon displayed
+  // A function is defined to set copied to the prompt value, changing the icon displayed
   const handleCopyClick = () => {
     setCopied(data.prompt);
-    // navigator is used to write inside the clipboard the data
+    // navigator is used to write the data inside the clipboard 
     navigator.clipboard.writeText(data.prompt);
     // Finally, a timer is set to return the icons back to default state
     setTimeout(() => setCopied(''), 3000);
   }
+
+  // useRouter to redirect to the userProfile:
+  const router = useRouter();
+
+  const handleProfileClick = () => {
+    if (data.creator._id === session?.user.id) return router.push('/profile')
+
+    router.push(`/profile/${data.creator.id}/?name=${data.creator.username}`)
+  };
 
   return (
     <div className="prompt_card">
